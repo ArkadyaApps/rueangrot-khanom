@@ -88,27 +88,19 @@ const [featuredPhoto, ...gridPhotos] = photos;
     </section>
   )}
 
-  <ReservationStrip locale={locale} />
+  <div class="reveal">
+    <ReservationStrip locale={locale} />
+  </div>
 
-  <div id="hours">
+  <div id="hours" class="reveal">
     <OpeningHours locale={locale} />
   </div>
 
-  <InstagramFeed locale={locale} />
-  <ContactSection locale={locale} />
+  <div class="reveal">
+    <InstagramFeed locale={locale} />
+  </div>
+  <div class="reveal">
+    <ContactSection locale={locale} />
+  </div>
 
 </BaseLayout>
-
-<script>
-  // Scroll reveal via IntersectionObserver
-  const io = new IntersectionObserver(
-    (entries) => entries.forEach((e) => {
-      if (e.isIntersecting) {
-        e.target.classList.add("in-view");
-        io.unobserve(e.target);
-      }
-    }),
-    { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
-  );
-  document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
-</script>

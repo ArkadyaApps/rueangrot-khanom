@@ -25,9 +25,9 @@ const pages = siteConfig.images.menu.map((src, i) => ({
   description={t("menu.intro")}
 >
   <!-- Header -->
-  <section class="container-narrow pt-24 pb-12 text-center max-w-2xl">
+  <section class="container-narrow pt-28 pb-14 text-center max-w-2xl reveal">
     <p class="eyebrow mb-6">{t("hero.eyebrow")}</p>
-    <h1 class="display italic text-5xl md:text-7xl text-[var(--color-gold-soft)] mb-8">
+    <h1 class="display italic text-6xl md:text-8xl text-[var(--color-gold-soft)] mb-8">
       {t("menu.title")}
     </h1>
     <Ornament class="mb-10" />
@@ -39,7 +39,7 @@ const pages = siteConfig.images.menu.map((src, i) => ({
   <!-- Menu pages grid -->
   {
     pages.length > 0 ? (
-      <section class="container-narrow pb-24" aria-label={t("menu.title")}>
+      <section class="container-narrow pb-24 reveal" aria-label={t("menu.title")}>
         <div class="grid md:grid-cols-2 gap-10 md:gap-14" id="menu-grid">
           {pages.map((p, i) => (
             <figure class="menu-card group">

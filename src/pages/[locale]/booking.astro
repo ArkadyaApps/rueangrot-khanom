@@ -19,9 +19,9 @@ const t = useTranslations(locale);
   title={`${t("booking.title")} — ${siteConfig.name}`}
   description={t("booking.intro")}
 >
-  <section class="container-narrow pt-24 pb-24 text-center max-w-2xl">
+  <section class="container-narrow pt-28 pb-24 text-center max-w-2xl reveal">
     <p class="eyebrow mb-6">{t("hero.eyebrow")}</p>
-    <h1 class="display italic text-5xl md:text-7xl text-[var(--color-gold-soft)] mb-6">
+    <h1 class="display italic text-6xl md:text-8xl text-[var(--color-gold-soft)] mb-6">
       {t("booking.title")}
     </h1>
     <Ornament class="mb-8" />
@@ -30,7 +30,7 @@ const t = useTranslations(locale);
     </p>
   </section>
 
-  <section class="container-narrow pb-32 max-w-2xl">
+  <section class="container-narrow pb-32 max-w-2xl reveal">
     <BookingForm client:load locale={locale} />
   </section>
 </BaseLayout>

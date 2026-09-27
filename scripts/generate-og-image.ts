@@ -1,49 +1,16 @@
 // Generates public/images/og.png: a 1200x630 branded share image with a QR
 // code linking to the live site. Runs in CI (Node), never at request time —
 // the Cloudflare Worker runtime can't launch a browser.
-import { readFileSync, writeFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
-import { fileURLToPath, pathToFileURL } from "node:url";
+import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 import QRCode from "qrcode";
 import jsQR from "jsqr";
 import { PNG } from "pngjs";
 import { siteConfig } from "../src/config/site";
+import { loadSiteUrl, loadHeroCopy, extractThemeVars } from "./lib/site-context";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
-
-async function loadSiteUrl(): Promise<string> {
-  const configPath = resolve(root, "astro.config.mjs");
-  const mod = await import(pathToFileURL(configPath).href);
-  const site = mod.default?.site;
-  if (!site) throw new Error("astro.config.mjs has no `site` set — cannot build the OG QR code");
-  return site;
-}
-
-function loadHeroCopy(): { eyebrow: string; subtitle: string } {
-  const dictPath = resolve(root, "src/i18n", `${siteConfig.defaultLocale}.json`);
-  const dict = JSON.parse(readFileSync(dictPath, "utf-8"));
-  return {
-    eyebrow: dict.hero?.eyebrow ?? siteConfig.name,
-    subtitle: dict.hero?.subtitle ?? siteConfig.name,
-  };
-}
-
-function extractThemeVars(theme: string): Record<string, string> {
-  const css = readFileSync(resolve(root, "src/styles/themes.css"), "utf-8");
-  const selector = `[data-theme="${theme}"]`;
-  const start = css.indexOf(selector);
-  if (start === -1) throw new Error(`Theme "${theme}" not found in themes.css`);
-  const openBrace = css.indexOf("{", start);
-  const closeBrace = css.indexOf("}", openBrace);
-  const block = css.slice(openBrace + 1, closeBrace);
-  const vars: Record<string, string> = {};
-  for (const line of block.split(";")) {
-    const match = line.match(/--([\w-]+)\s*:\s*([^;]+)/);
-    if (match) vars[match[1]] = match[2].trim();
-  }
-  return vars;
-}
 
 async function verifyQrDecodes(png: Buffer, expected: string) {
   const decoded = PNG.sync.read(png);
@@ -54,9 +21,9 @@ async function verifyQrDecodes(png: Buffer, expected: string) {
 }
 
 async function main() {
-  const siteUrl = await loadSiteUrl();
-  const { eyebrow, subtitle } = loadHeroCopy();
-  const vars = extractThemeVars(siteConfig.theme);
+  const siteUrl = await loadSiteUrl(root);
+  const { eyebrow, subtitle } = loadHeroCopy(root);
+  const vars = extractThemeVars(root, siteConfig.theme);
 
   const qrPng = await QRCode.toBuffer(siteUrl, { type: "png", margin: 2, width: 220, color: { dark: "#1a1a1a", light: "#ffffff" } });
   await verifyQrDecodes(qrPng, siteUrl);

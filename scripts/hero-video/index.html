@@ -1,0 +1,149 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"bg","type":"color","label":"Background","default":"#211010"},
+    {"id":"accent","type":"color","label":"Accent","default":"#7a2a1a"},
+    {"id":"gold","type":"color","label":"Gold","default":"#e0c088"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Restaurant hero ambient loop</title>
+    <script src="./vendor/gsap.min.js"></script>
+    <style>
+      html,
+      body {
+        margin: 0;
+        background: #000;
+        overflow: hidden;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--bg);
+      }
+      #bg {
+        position: absolute;
+        inset: 0;
+      }
+      #wash {
+        position: absolute;
+        inset: 0;
+        background: var(--bg);
+      }
+      .orbit {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(120px);
+      }
+      #sweep {
+        position: absolute;
+        inset: -20%;
+        background: conic-gradient(
+          from 0deg,
+          transparent 0deg,
+          transparent 250deg,
+          color-mix(in oklch, var(--gold) 22%, transparent) 285deg,
+          transparent 320deg,
+          transparent 360deg
+        );
+        opacity: 0.5;
+      }
+      #vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse at center,
+          transparent 45%,
+          color-mix(in oklch, var(--bg) 92%, black) 100%
+        );
+      }
+      #grain {
+        position: absolute;
+        inset: 0;
+        opacity: 0.045;
+        mix-blend-mode: overlay;
+        background-image: repeating-linear-gradient(0deg, #fff 0 1px, transparent 1px 3px),
+          repeating-linear-gradient(90deg, #fff 0 1px, transparent 1px 3px);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="hero" data-width="1920" data-height="1080" data-duration="6" data-layout-allow-overflow>
+      <!-- Shared full-bleed background — not a clip, no data-start -->
+      <div id="bg">
+        <div id="wash"></div>
+
+        <div id="sweep-orbit" class="orbit">
+          <div id="sweep"></div>
+        </div>
+
+        <div id="blob-orbit-1" class="orbit">
+          <div
+            id="blob1"
+            class="blob"
+            style="width: 60vw; height: 60vw; left: -10vw; top: -20vh; background: var(--accent); opacity: 0.32;"
+          ></div>
+        </div>
+
+        <div id="blob-orbit-2" class="orbit">
+          <div
+            id="blob2"
+            class="blob"
+            style="width: 46vw; height: 46vw; right: -12vw; bottom: -18vh; left: auto; top: auto; background: var(--gold); opacity: 0.28;"
+          ></div>
+        </div>
+
+        <div id="blob-orbit-3" class="orbit">
+          <div
+            id="blob3"
+            class="blob"
+            style="width: 34vw; height: 34vw; left: 55vw; top: 55vh; background: var(--accent); opacity: 0.22;"
+          ></div>
+        </div>
+
+        <div id="bloom" style="position:absolute; inset:0;">
+          <div id="vignette"></div>
+          <div id="grain"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const DURATION = 6;
+      const tl = gsap.timeline({ paused: true });
+
+      // Each orbit does an exact integer number of full rotations over the
+      // full duration, so every layer is back at its start orientation at
+      // t=DURATION — a mathematically seamless loop when the exported MP4
+      // is played with the HTML5 <video loop> attribute.
+      tl.fromTo("#blob-orbit-1", { rotate: 0 }, { rotate: 360, duration: DURATION, ease: "none" }, 0);
+      tl.fromTo("#blob-orbit-2", { rotate: 0 }, { rotate: -360, duration: DURATION, ease: "none" }, 0);
+      tl.fromTo("#blob-orbit-3", { rotate: 0 }, { rotate: 720, duration: DURATION, ease: "none" }, 0);
+      tl.fromTo("#sweep-orbit", { rotate: 0 }, { rotate: -360, duration: DURATION, ease: "none" }, 0);
+
+      // Slow bloom breathing: one full up-down cycle over the exact
+      // duration, so it returns to its start scale precisely at the loop
+      // point. yoyo + a finite repeat count (1) — never repeat: -1.
+      tl.fromTo(
+        "#bloom",
+        { scale: 1, opacity: 0.9 },
+        { scale: 1.05, opacity: 1, duration: DURATION / 2, ease: "sine.inOut", yoyo: true, repeat: 1 },
+        0
+      );
+
+      window.__timelines["hero"] = tl;
+    </script>
+  </body>
+</html>

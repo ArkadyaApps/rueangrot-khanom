@@ -128,5 +128,21 @@ const jsonLd = {
     <main><slot /></main>
     <Footer locale={locale} />
     <WhatsAppFloat />
+    <script>
+      // Site-wide scroll reveal: any element with class="reveal" (optionally
+      // reveal-d1..d4 for a staggered delay) fades/slides in once when it
+      // enters the viewport. See src/styles/global.css for the transition.
+      const io = new IntersectionObserver(
+        (entries) =>
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("in-view");
+              io.unobserve(e.target);
+            }
+          }),
+        { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+      );
+      document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+    </script>
   </body>
 </html>
