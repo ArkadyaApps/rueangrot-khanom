@@ -20,7 +20,10 @@ const pages = siteConfig.images.menu.map((src, i) => ({
 }));
 ---
 
-<BaseLayout title={t("menu.title")}>
+<BaseLayout
+  title={`${t("menu.title")} — ${siteConfig.name}`}
+  description={t("menu.intro")}
+>
   <!-- Header -->
   <section class="container-narrow pt-24 pb-12 text-center max-w-2xl">
     <p class="eyebrow mb-6">{t("hero.eyebrow")}</p>

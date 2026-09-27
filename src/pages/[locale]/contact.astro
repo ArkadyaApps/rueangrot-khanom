@@ -3,6 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import ContactSection from "@/components/ContactSection.astro";
 import OpeningHours from "@/components/OpeningHours.astro";
 import { useTranslations, type Locale, locales } from "@/i18n/utils";
+import { siteConfig } from "@/config/site";
 
 export const prerender = true;
 
@@ -14,7 +15,10 @@ const { locale } = Astro.params as { locale: Locale };
 const t = useTranslations(locale);
 ---
 
-<BaseLayout title={t("contact.title")}>
+<BaseLayout
+  title={`${t("contact.title")} — ${siteConfig.name}`}
+  description={`${t("contact.address")} · ${t("contact.whatsappLabel")}: ${siteConfig.contact.whatsappDisplay}`}
+>
   <section class="container-narrow pt-24 pb-8 text-center">
     <p class="eyebrow mb-6">{t("hero.eyebrow")}</p>
     <h1 class="display italic text-5xl md:text-7xl text-[var(--color-gold-soft)]">

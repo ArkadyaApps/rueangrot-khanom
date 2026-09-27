@@ -21,7 +21,10 @@ const photos = siteConfig.images.menu;
 const [featuredPhoto, ...gridPhotos] = photos;
 ---
 
-<BaseLayout title={`${siteConfig.name} · ${t("hero.eyebrow")}`}>
+<BaseLayout
+  title={`${siteConfig.name} — ${t("hero.eyebrow")}`}
+  description={t("hero.subtitle")}
+>
 
   <HeroSection locale={locale} />
 

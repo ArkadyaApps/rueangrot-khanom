@@ -1,15 +1,17 @@
 {
-  "name": "restaurant-template",
+  "name": "rueangrot-khanom",
   "type": "module",
   "version": "0.1.0",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "generate:og": "tsx scripts/generate-og-image.ts"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.5.4",
     "@astrojs/react": "^4.2.1",
+    "@astrojs/sitemap": "^3.2.1",
     "@hookform/resolvers": "^5.0.1",
     "@tailwindcss/vite": "^4.1.6",
     "astro": "^5.7.12",
@@ -27,6 +29,11 @@
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "drizzle-kit": "^0.30.6",
+    "jsqr": "^1.4.0",
+    "playwright": "^1.48.0",
+    "pngjs": "^7.0.0",
+    "qrcode": "^1.5.4",
+    "tsx": "^4.19.2",
     "typescript": "^5.8.3",
     "wrangler": "^4.11.0"
   }

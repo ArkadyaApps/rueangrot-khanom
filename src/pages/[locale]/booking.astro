@@ -15,7 +15,10 @@ const { locale } = Astro.params as { locale: Locale };
 const t = useTranslations(locale);
 ---
 
-<BaseLayout title={t("booking.title")}>
+<BaseLayout
+  title={`${t("booking.title")} — ${siteConfig.name}`}
+  description={t("booking.intro")}
+>
   <section class="container-narrow pt-24 pb-24 text-center max-w-2xl">
     <p class="eyebrow mb-6">{t("hero.eyebrow")}</p>
     <h1 class="display italic text-5xl md:text-7xl text-[var(--color-gold-soft)] mb-6">
