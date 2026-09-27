@@ -1,0 +1,14 @@
+---
+import LanguageSelector from "./LanguageSelector.tsx";
+import type { Locale } from "@/i18n/utils";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const currentPath = Astro.url.pathname.replace(/^\/(en|fr|th)/, "") || "/";
+---
+
+<div class="fixed top-5 right-5 z-50 rounded-full border border-[var(--color-line-strong)] bg-[oklch(from_var(--color-bg)_l_c_h_/_0.7)] backdrop-blur-md">
+  <LanguageSelector client:load currentLocale={locale} currentPath={currentPath} />
+</div>

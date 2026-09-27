@@ -13,8 +13,15 @@ const whatsappHref = `https://wa.me/${siteConfig.contact.whatsapp.replace(/\D/g,
 ---
 
 <footer class="mt-32 pt-16 md:pt-24 border-t border-[var(--color-line)] overflow-hidden">
-  <!-- Billboard wordmark -->
+  <!-- Logo + billboard wordmark -->
   <div class="container-narrow reveal">
+    {siteConfig.images.logo && (
+      <img
+        src={siteConfig.images.logo}
+        alt={siteConfig.name}
+        style="height:72px; width:auto; max-width:200px; object-fit:contain; margin-bottom:1.5rem;"
+      />
+    )}
     <p
       class="display italic text-[var(--color-gold-soft)] leading-[0.85]"
       style="font-size:clamp(2.5rem,11vw,9rem); letter-spacing:-0.02em;"
