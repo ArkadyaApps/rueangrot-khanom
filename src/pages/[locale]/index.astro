@@ -65,23 +65,24 @@ const [featuredPhoto, ...gridPhotos] = photos;
     </div>
   </section>
 
-  <!-- Menu photo mosaic -->
+  <!-- Menu — draggable scattered-photo reel -->
   {gridPhotos.length > 0 && (
-    <section class="container-narrow pb-16 reveal">
-      <header class="text-center mb-10">
+    <section class="pb-16 reveal overflow-hidden">
+      <header class="container-narrow text-center mb-2">
         <p class="eyebrow mb-3">{t("menu.title")}</p>
         <p class="text-sm text-[var(--color-fg-muted)]">{t("menu.intro")}</p>
         <div class="gold-rule mt-5 max-w-[80px] mx-auto"></div>
       </header>
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3">
+      <div class="reel-track" data-reel>
         {gridPhotos.map((src, i) => (
-          <div class={`overflow-hidden rounded-sm ${i === 0 ? "md:col-span-2 aspect-[16/9]" : "aspect-square"}`}>
-            <img
-              src={src}
-              alt={`${t("menu.title")} ${i + 2}`}
-              loading="lazy"
-              class="w-full h-full object-cover hover:scale-[1.04] transition-transform duration-700 ease-out"
-            />
+          <div class="reel-card">
+            <div class="reel-card-frame">
+              <img
+                src={src}
+                alt={`${t("menu.title")} ${i + 2}`}
+                loading="lazy"
+              />
+            </div>
           </div>
         ))}
       </div>

@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import BookingForm from "@/components/BookingForm.tsx";
-import Ornament from "@/components/Ornament.astro";
 import { useTranslations, type Locale, locales } from "@/i18n/utils";
 import { siteConfig } from "@/config/site";
 
@@ -19,18 +18,22 @@ const t = useTranslations(locale);
   title={`${t("booking.title")} — ${siteConfig.name}`}
   description={t("booking.intro")}
 >
-  <section class="container-narrow pt-28 pb-24 text-center max-w-2xl reveal">
-    <p class="eyebrow mb-6">{t("hero.eyebrow")}</p>
-    <h1 class="display italic text-6xl md:text-8xl text-[var(--color-gold-soft)] mb-6">
-      {t("booking.title")}
-    </h1>
-    <Ornament class="mb-8" />
-    <p class="text-base text-[var(--color-fg-muted)] leading-relaxed font-light">
-      {t("booking.intro")}
-    </p>
-  </section>
+  <section class="container-narrow pt-28 pb-32">
+    <div class="grid md:grid-cols-12 gap-10 md:gap-16">
+      <div class="md:col-span-5 md:sticky md:top-32 reveal">
+        <p class="eyebrow mb-6">{t("hero.eyebrow")}</p>
+        <h1 class="display italic text-[var(--color-gold-soft)] leading-[0.92] mb-8" style="font-size:clamp(3rem,6vw,5.5rem);">
+          {t("booking.title")}
+        </h1>
+        <span class="block h-px w-20 gold-rule mb-8" aria-hidden="true"></span>
+        <p class="text-base text-[var(--color-fg-muted)] leading-relaxed font-light max-w-sm">
+          {t("booking.intro")}
+        </p>
+      </div>
 
-  <section class="container-narrow pb-32 max-w-2xl reveal">
-    <BookingForm client:load locale={locale} />
+      <div class="md:col-span-6 md:col-start-7 reveal reveal-d2">
+        <BookingForm client:load locale={locale} />
+      </div>
+    </div>
   </section>
 </BaseLayout>

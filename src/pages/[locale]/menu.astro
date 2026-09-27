@@ -39,31 +39,23 @@ const pages = siteConfig.images.menu.map((src, i) => ({
   <!-- Menu pages grid -->
   {
     pages.length > 0 ? (
-      <section class="container-narrow pb-24 reveal" aria-label={t("menu.title")}>
-        <div class="grid md:grid-cols-2 gap-10 md:gap-14" id="menu-grid">
+      <section class="pb-24 reveal overflow-hidden" aria-label={t("menu.title")}>
+        <div class="reel-track" id="menu-grid" data-reel>
           {pages.map((p, i) => (
-            <figure class="menu-card group">
-              <div class="menu-numeral">
-                <span class="block h-px w-10 bg-gradient-to-r from-transparent to-[var(--color-gold-deep)] opacity-70" />
-                <span class="display italic text-base text-[var(--color-gold)]">
-                  {p.numeral}
-                </span>
-                <span class="block h-px w-10 bg-gradient-to-l from-transparent to-[var(--color-gold-deep)] opacity-70" />
-              </div>
+            <figure class="reel-card group">
               <button
                 type="button"
                 data-menu-open={i}
-                class="menu-frame block w-full cursor-zoom-in"
+                class="reel-card-frame block w-full cursor-zoom-in"
                 aria-label={`${t("menu.title")} · ${p.numeral}`}
               >
-                <img
-                  src={p.src}
-                  alt={`${t("menu.title")} · ${p.numeral}`}
-                  loading="lazy"
-                  decoding="async"
-                  class="block w-full h-auto"
-                />
+                <img src={p.src} alt={`${t("menu.title")} · ${p.numeral}`} loading="lazy" decoding="async" />
               </button>
+              <figcaption class="flex items-center gap-3 mt-4" aria-hidden="true">
+                <span class="block h-px flex-1 bg-gradient-to-r from-transparent to-[var(--color-gold-deep)] opacity-70" />
+                <span class="display italic text-base text-[var(--color-gold)]">{p.numeral}</span>
+                <span class="block h-px flex-1 bg-gradient-to-l from-transparent to-[var(--color-gold-deep)] opacity-70" />
+              </figcaption>
             </figure>
           ))}
         </div>
@@ -276,54 +268,6 @@ const pages = siteConfig.images.menu.map((src, i) => ({
 </script>
 
 <style>
-  .menu-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.25rem;
-    margin: 0;
-  }
-
-  .menu-numeral {
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-    letter-spacing: 0.18em;
-  }
-
-  .menu-frame {
-    position: relative;
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-sm);
-    padding: 0.6rem;
-    background: linear-gradient(
-      180deg,
-      oklch(from var(--color-surface) l c h / 0.6),
-      oklch(from var(--color-bg-2) l c h / 0.6)
-    );
-    box-shadow:
-      0 1px 0 0 oklch(from var(--color-gold) l c h / 0.15),
-      0 24px 60px -30px oklch(0 0 0 / 0.55);
-    transition:
-      transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 0.4s ease,
-      border-color 0.3s ease;
-    overflow: hidden;
-  }
-
-  .menu-frame img {
-    border-radius: 1px;
-  }
-
-  .menu-card:hover .menu-frame {
-    transform: translateY(-4px);
-    border-color: var(--color-gold-deep);
-    box-shadow:
-      0 1px 0 0 oklch(from var(--color-gold) l c h / 0.3),
-      0 36px 80px -30px oklch(0 0 0 / 0.7),
-      0 0 60px -20px oklch(from var(--color-accent) l c h / 0.4);
-  }
-
   /* Lightbox */
   .lightbox {
     width: 100vw;
@@ -480,12 +424,6 @@ const pages = siteConfig.images.menu.map((src, i) => ({
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .menu-frame {
-      transition: none;
-    }
-    .menu-card:hover .menu-frame {
-      transform: none;
-    }
     .lightbox[open] .lightbox-inner {
       animation: none;
     }

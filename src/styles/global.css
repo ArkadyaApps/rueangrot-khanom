@@ -171,4 +171,61 @@
   @media (prefers-reduced-motion: reduce) {
     .reveal { opacity: 1; transform: none; transition: none; }
   }
+
+  /* Draggable photo reel — scattered-polaroid tilt, horizontal scroll-snap,
+     wired up generically in BaseLayout for any [data-reel] track. */
+  .reel-track {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 2.5rem max(1.25rem, calc((100vw - 68rem) / 2 + 1.25rem)) 3rem;
+    cursor: grab;
+    user-select: none;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent);
+  }
+  .reel-track::-webkit-scrollbar { display: none; }
+  .reel-track.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+  .reel-card {
+    flex: 0 0 auto;
+    width: min(70vw, 320px);
+    scroll-snap-align: center;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+  .reel-card:nth-child(odd) { transform: rotate(-2.5deg) translateY(0.6rem); }
+  .reel-card:nth-child(even) { transform: rotate(2.5deg) translateY(-0.6rem); }
+  .reel-card:nth-child(3n) { width: min(60vw, 250px); }
+  .reel-track:not(.is-dragging) .reel-card:hover {
+    transform: rotate(0deg) translateY(-10px) scale(1.05);
+    z-index: 2;
+  }
+  .reel-card-frame {
+    display: block;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem;
+    background: linear-gradient(180deg, oklch(from var(--color-surface) l c h / 0.6), oklch(from var(--color-bg-2) l c h / 0.6));
+    box-shadow: 0 1px 0 0 oklch(from var(--color-gold) l c h / 0.15), 0 24px 50px -25px oklch(0 0 0 / 0.55);
+    transition: box-shadow 0.4s ease, border-color 0.3s ease;
+  }
+  .reel-card-frame img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 1px;
+  }
+  .reel-card:nth-child(even) .reel-card-frame img { aspect-ratio: 1 / 1; }
+  .reel-card:hover .reel-card-frame {
+    border-color: var(--color-gold-deep);
+    box-shadow: 0 1px 0 0 oklch(from var(--color-gold) l c h / 0.3), 0 36px 80px -30px oklch(0 0 0 / 0.7), 0 0 60px -20px oklch(from var(--color-accent) l c h / 0.4);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reel-card { transition: none; }
+  }
 }

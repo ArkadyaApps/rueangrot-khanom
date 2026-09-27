@@ -143,6 +143,47 @@ const jsonLd = {
         { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
       );
       document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+      // Draggable photo reels: any [data-reel] track becomes mouse-drag
+      // scrollable (touch/trackpad already scroll it natively). A drag
+      // past a small threshold suppresses the following click, so cards
+      // that open a lightbox on click still work for an actual tap.
+      document.querySelectorAll<HTMLElement>("[data-reel]").forEach((track) => {
+        let isDown = false;
+        let dragged = false;
+        let startX = 0;
+        let startScroll = 0;
+
+        track.addEventListener("pointerdown", (e) => {
+          isDown = true;
+          dragged = false;
+          startX = e.clientX;
+          startScroll = track.scrollLeft;
+          track.classList.add("is-dragging");
+        });
+        track.addEventListener("pointermove", (e) => {
+          if (!isDown) return;
+          const dx = e.clientX - startX;
+          if (Math.abs(dx) > 4) dragged = true;
+          track.scrollLeft = startScroll - dx;
+        });
+        const end = () => {
+          isDown = false;
+          track.classList.remove("is-dragging");
+        };
+        track.addEventListener("pointerup", end);
+        track.addEventListener("pointerleave", end);
+        track.addEventListener(
+          "click",
+          (e) => {
+            if (dragged) {
+              e.preventDefault();
+              e.stopPropagation();
+            }
+          },
+          true
+        );
+      });
     </script>
   </body>
 </html>

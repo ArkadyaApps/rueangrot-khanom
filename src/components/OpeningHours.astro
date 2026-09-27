@@ -8,44 +8,66 @@ interface Props {
 const { locale } = Astro.props;
 const t = useTranslations(locale);
 
-const dayKeys = ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"] as const;
+const dayKeys = [
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+  "sunday",
+] as const;
 
 const tz = siteConfig.timezone;
 const fmt = new Intl.DateTimeFormat("en-US", { weekday: "long", timeZone: tz });
-const todayName = fmt.format(new Date()).toLowerCase();
+const todayName = fmt.format(new Date()).toLowerCase() as (typeof dayKeys)[number];
+const todaySlot = siteConfig.hours[todayName];
 ---
 
-<section class="container-narrow py-24 md:py-32" id="hours">
-  <div class="max-w-lg mx-auto">
-    <header class="text-center mb-14 reveal">
-      <p class="eyebrow mb-4">⌖</p>
-      <h2 class="display italic text-[clamp(2.5rem,6vw,4rem)] text-[var(--color-gold-soft)]">
-        {t("hours.title")}
-      </h2>
-      <div class="gold-rule mt-6 max-w-[120px] mx-auto"></div>
-    </header>
+<section class="container-narrow py-24 md:py-36" id="hours">
+  <div class="grid md:grid-cols-12 gap-10 md:gap-16">
+    <!-- Today, in large display type -->
+    <div class="md:col-span-5 md:sticky md:top-32 reveal">
+      <p class="eyebrow mb-5">{t("hours.title")}</p>
+      <p class="display italic text-[var(--color-gold-soft)] leading-[0.92]" style="font-size:clamp(2.6rem,6.5vw,5rem);">
+        {todaySlot ? t("hours.openLabel") : t("hours.closedLabel")}
+      </p>
+      <p class="mt-4 text-2xl text-[var(--color-fg-muted)] font-light">
+        {todaySlot ? `${todaySlot.open} – ${todaySlot.close}` : t("hours.closedSubline")}
+      </p>
+    </div>
 
-    <div class="panel p-8 md:p-10 reveal reveal-d1">
+    <!-- Full week, compact -->
+    <div class="md:col-span-6 md:col-start-7 reveal reveal-d2">
       <ul>
-        {dayKeys.map((day, i) => {
-          const slot = siteConfig.hours[day];
-          const isToday = day === todayName;
-          return (
-            <li class={`flex items-center justify-between py-3.5 ${i < dayKeys.length - 1 ? "border-b border-[var(--color-line)]" : ""}`}>
-              <span class="text-[0.78rem] tracking-[0.2em] uppercase font-light"
-                style={isToday ? "color:var(--color-gold);font-weight:500;" : "color:var(--color-fg-muted);"}>
-                {t(`hours.${day}`)}
-                {isToday && <span class="ml-2 text-[var(--color-gold)] opacity-60" aria-label="today">·</span>}
-              </span>
-              <span class="font-display italic text-[1.05rem]"
-                style={isToday
-                  ? (slot ? "color:var(--color-gold-soft)" : "color:var(--color-fg-muted)")
-                  : "color:var(--color-fg-muted)"}>
-                {slot ? `${slot.open} – ${slot.close}` : t("hours.closed")}
-              </span>
-            </li>
-          );
-        })}
+        {
+          dayKeys.map((day, i) => {
+            const slot = siteConfig.hours[day];
+            const isToday = day === todayName;
+            return (
+              <li
+                class={`flex items-baseline justify-between py-4 ${i < dayKeys.length - 1 ? "border-b border-[var(--color-line)]" : ""}`}
+              >
+                <span
+                  class="text-sm tracking-[0.2em] uppercase font-light"
+                  style={isToday ? "color:var(--color-gold);font-weight:500;" : "color:var(--color-fg-muted);"}
+                >
+                  {t(`hours.${day}`)}
+                </span>
+                <span
+                  class="font-display italic text-xl"
+                  style={isToday
+                    ? slot
+                      ? "color:var(--color-gold-soft)"
+                      : "color:var(--color-fg-muted)"
+                    : "color:var(--color-fg-muted)"}
+                >
+                  {slot ? `${slot.open} – ${slot.close}` : t("hours.closed")}
+                </span>
+              </li>
+            );
+          })
+        }
       </ul>
     </div>
   </div>

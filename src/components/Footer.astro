@@ -12,53 +12,78 @@ const directionsHref = `https://www.google.com/maps/dir/?api=1&destination=${sit
 const whatsappHref = `https://wa.me/${siteConfig.contact.whatsapp.replace(/\D/g, "")}`;
 ---
 
-<footer class="mt-24 md:mt-32 border-t border-[var(--color-line)]">
-  <!-- Top strip -->
-  <div class="border-b border-[var(--color-line)]">
-    <div class="container-narrow grid md:grid-cols-3 gap-10 md:gap-6 py-16 text-center md:text-left">
-      <div>
-        <p class="eyebrow mb-4">{t("contact.addressLabel")}</p>
-        <p class="text-sm text-[var(--color-fg-muted)] leading-loose">{t("footer.addressShort")}</p>
-        <a href={directionsHref} target="_blank" rel="noopener noreferrer"
-          class="inline-block mt-3 text-[0.68rem] uppercase tracking-[0.24em] text-[var(--color-gold-deep)] hover:text-[var(--color-gold)] transition-colors">
+<footer class="mt-32 pt-16 md:pt-24 border-t border-[var(--color-line)] overflow-hidden">
+  <!-- Billboard wordmark -->
+  <div class="container-narrow reveal">
+    <p
+      class="display italic text-[var(--color-gold-soft)] leading-[0.85]"
+      style="font-size:clamp(2.5rem,11vw,9rem); letter-spacing:-0.02em;"
+    >
+      {siteConfig.name}
+    </p>
+  </div>
+
+  <!-- Info strip — asymmetric, not centered -->
+  <div class="container-narrow mt-14 md:mt-20 pb-12">
+    <div class="grid md:grid-cols-3 gap-10 md:gap-8 pt-10 border-t border-[var(--color-line)]">
+      <div class="reveal">
+        <p class="eyebrow mb-3">{t("contact.addressLabel")}</p>
+        <p class="text-sm text-[var(--color-fg-muted)] leading-relaxed max-w-[22ch]">
+          {t("footer.addressShort")}
+        </p>
+        <a
+          href={directionsHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block mt-3 text-[0.7rem] uppercase tracking-[0.22em] text-[var(--color-gold-deep)] hover:text-[var(--color-gold)] transition-colors"
+        >
           {t("contact.directions")} →
         </a>
       </div>
 
-      <div class="md:text-center">
-        <p class="eyebrow mb-4">{t("hours.title")}</p>
-        <p class="text-sm text-[var(--color-fg-muted)] leading-loose">{t("footer.hoursShort")}</p>
-        <a href={localizedPath(locale, "/booking")}
-          class="inline-block mt-3 text-[0.68rem] uppercase tracking-[0.24em] text-[var(--color-gold-deep)] hover:text-[var(--color-gold)] transition-colors">
+      <div class="reveal reveal-d1">
+        <p class="eyebrow mb-3">{t("hours.title")}</p>
+        <p class="text-sm text-[var(--color-fg-muted)] leading-relaxed max-w-[22ch]">
+          {t("footer.hoursShort")}
+        </p>
+        <a
+          href={localizedPath(locale, "/booking")}
+          class="inline-block mt-3 text-[0.7rem] uppercase tracking-[0.22em] text-[var(--color-gold-deep)] hover:text-[var(--color-gold)] transition-colors"
+        >
           {t("reservation.cta")} →
         </a>
       </div>
 
-      <div class="md:text-right">
-        <p class="eyebrow mb-4">{t("contact.whatsappLabel")}</p>
-        <a href={whatsappHref} target="_blank" rel="noopener noreferrer"
-          class="text-sm text-[var(--color-gold)] hover:text-[var(--color-gold-soft)] transition-colors">
+      <div class="reveal reveal-d2 md:text-right">
+        <p class="eyebrow mb-3">{t("contact.whatsappLabel")}</p>
+        <a
+          href={whatsappHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-sm text-[var(--color-gold)] hover:text-[var(--color-gold-soft)]"
+        >
           {siteConfig.contact.whatsappDisplay}
         </a>
         {siteConfig.contact.socialType !== "none" && siteConfig.contact.socialUrl && (
-          <a href={siteConfig.contact.socialUrl} target="_blank" rel="noopener noreferrer"
-            class="block mt-3 text-[0.68rem] uppercase tracking-[0.24em] text-[var(--color-gold-deep)] hover:text-[var(--color-gold)] transition-colors">
+          <a
+            href={siteConfig.contact.socialUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block mt-3 text-[0.7rem] uppercase tracking-[0.22em] text-[var(--color-gold-deep)] hover:text-[var(--color-gold)] transition-colors"
+          >
             {t("social.follow")} →
           </a>
         )}
       </div>
     </div>
-  </div>
 
-  <!-- Logotype centrepiece -->
-  <div class="container-narrow py-14 text-center">
-    <div class="gold-rule mb-10 max-w-[200px] mx-auto opacity-40"></div>
-    {siteConfig.images?.logo && (
-      <img src={siteConfig.images.logo} alt={siteConfig.name}
-        style="width:44px;height:44px;object-fit:contain;margin:0 auto 1rem;display:block;opacity:0.75;" />
-    )}
-    <p class="display italic text-[clamp(2.2rem,5vw,3.5rem)] text-[var(--color-gold-soft)]">{siteConfig.name}</p>
-    <p class="mt-2 text-[0.66rem] uppercase tracking-[0.4em] text-[var(--color-fg-subtle)]">{t("footer.tagline")}</p>
-    <p class="mt-8 text-xs text-[var(--color-fg-subtle)] opacity-60">© {year} · {t("footer.rights")}</p>
+    <div class="flex flex-col md:flex-row items-center md:items-baseline justify-between gap-3 mt-14 pt-6 border-t border-[var(--color-line)]">
+      <p class="text-[0.66rem] uppercase tracking-[0.32em] text-[var(--color-fg-subtle)]">
+        {t("footer.tagline")}
+      </p>
+      <p class="text-xs text-[var(--color-fg-subtle)]">
+        © {year} · {t("footer.rights")}
+      </p>
+    </div>
   </div>
 </footer>
