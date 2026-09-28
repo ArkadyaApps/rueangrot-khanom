@@ -24,8 +24,8 @@ const todayName = fmt.format(new Date()).toLowerCase() as (typeof dayKeys)[numbe
 const todaySlot = siteConfig.hours[todayName];
 ---
 
-<section class="container-narrow py-24 md:py-36" id="hours">
-  <div class="grid md:grid-cols-12 gap-10 md:gap-16">
+<section class="container-narrow py-12 md:py-20" id="hours">
+  <div class="grid md:grid-cols-12 gap-8 md:gap-12">
     <!-- Today, in large display type -->
     <div class="md:col-span-5 md:sticky md:top-32 reveal">
       <p class="eyebrow mb-5">{t("hours.title")}</p>
@@ -46,7 +46,7 @@ const todaySlot = siteConfig.hours[todayName];
             const isToday = day === todayName;
             return (
               <li
-                class={`flex items-baseline justify-between py-4 ${i < dayKeys.length - 1 ? "border-b border-[var(--color-line)]" : ""}`}
+                class={`flex items-baseline justify-between py-3 ${i < dayKeys.length - 1 ? "border-b border-[var(--color-line)]" : ""}`}
               >
                 <span
                   class="text-sm tracking-[0.2em] uppercase font-light"

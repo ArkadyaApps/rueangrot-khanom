@@ -15,8 +15,8 @@ const feedId = import.meta.env.PUBLIC_BEHOLD_FEED_ID;
 if (socialType === "none" || !socialUrl) return;
 ---
 
-<section class="container-narrow py-24">
-  <header class="flex items-end justify-between gap-6 mb-10 reveal">
+<section class="container-narrow py-10 md:py-14">
+  <header class="flex items-end justify-between gap-6 mb-6 reveal">
     <p class="eyebrow">{t("social.title")}</p>
     <a
       href={socialUrl}

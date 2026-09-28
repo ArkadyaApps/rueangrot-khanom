@@ -25,12 +25,12 @@ const pages = siteConfig.images.menu.map((src, i) => ({
   description={t("menu.intro")}
 >
   <!-- Header -->
-  <section class="container-narrow pt-28 pb-14 text-center max-w-2xl reveal">
+  <section class="container-narrow pt-24 pb-10 text-center max-w-2xl reveal">
     <p class="eyebrow mb-6">{t("hero.eyebrow")}</p>
     <h1 class="display italic text-6xl md:text-8xl text-[var(--color-gold-soft)] mb-8">
       {t("menu.title")}
     </h1>
-    <Ornament class="mb-10" />
+    <Ornament class="mb-8" />
     <p class="text-lg text-[var(--color-fg-muted)] leading-loose font-light">
       {t("menu.intro")}
     </p>
@@ -39,7 +39,7 @@ const pages = siteConfig.images.menu.map((src, i) => ({
   <!-- Menu pages grid -->
   {
     pages.length > 0 ? (
-      <section class="pb-24 reveal overflow-hidden" aria-label={t("menu.title")}>
+      <section class="pb-14 reveal overflow-hidden" aria-label={t("menu.title")}>
         <div class="reel-track" id="menu-grid" data-reel>
           {pages.map((p, i) => (
             <figure class="reel-card group">
@@ -61,7 +61,7 @@ const pages = siteConfig.images.menu.map((src, i) => ({
         </div>
       </section>
     ) : (
-      <section class="container-narrow pb-24 text-center max-w-2xl">
+      <section class="container-narrow pb-14 text-center max-w-2xl">
         <p class="text-lg text-[var(--color-fg-muted)] italic mb-4">
           {t("menu.comingSoon")}
         </p>

@@ -29,8 +29,8 @@ const [featuredPhoto, ...gridPhotos] = photos;
   <HeroSection locale={locale} />
 
   <!-- About — editorial asymmetric split -->
-  <section id="about" class="container-narrow py-24 md:py-36">
-    <div class="grid md:grid-cols-12 gap-10 md:gap-16 items-start">
+  <section id="about" class="container-narrow py-14 md:py-24">
+    <div class="grid md:grid-cols-12 gap-8 md:gap-14 items-start">
       <!-- Left: sticky pullquote -->
       <div class="md:col-span-5 md:sticky md:top-28 reveal">
         <p class="eyebrow mb-5">{t("about.title")}</p>
@@ -67,7 +67,7 @@ const [featuredPhoto, ...gridPhotos] = photos;
 
   <!-- Menu — draggable scattered-photo reel -->
   {gridPhotos.length > 0 && (
-    <section class="pb-16 reveal overflow-hidden">
+    <section class="pb-10 md:pb-12 reveal overflow-hidden">
       <header class="container-narrow text-center mb-2">
         <p class="eyebrow mb-3">{t("menu.title")}</p>
         <p class="text-sm text-[var(--color-fg-muted)]">{t("menu.intro")}</p>

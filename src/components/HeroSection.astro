@@ -14,7 +14,7 @@ const isClosedToday = siteConfig.hours[todayName] === null;
 const todaySlot = siteConfig.hours[todayName];
 ---
 
-<section class="relative overflow-hidden min-h-[100dvh] flex items-center" aria-label={siteConfig.name}>
+<section class="relative overflow-hidden min-h-[88svh] flex items-center" aria-label={siteConfig.name}>
 
   <!-- Cinematic ambient loop — rendered per-theme via HyperFrames -->
   <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -57,10 +57,10 @@ const todaySlot = siteConfig.hours[todayName];
     </svg>
   ))}
 
-  <div class="container-narrow relative z-10 py-24 md:py-36 text-center w-full">
+  <div class="container-narrow relative z-10 py-16 md:py-24 text-center w-full">
 
     <!-- Status pill -->
-    <div class="flex justify-center mb-10 hero-in" style="--d:0ms">
+    <div class="flex justify-center mb-8 hero-in" style="--d:0ms">
       <span class={`inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border text-[0.64rem] uppercase tracking-[0.3em] backdrop-blur-sm ${isClosedToday ? "border-[var(--color-line-strong)] text-[var(--color-fg-muted)] bg-[oklch(from_var(--color-bg)_l_c_h_/_0.5)]" : "border-[var(--color-gold-deep)] text-[var(--color-gold-soft)] bg-[oklch(from_var(--color-surface)_l_c_h_/_0.65)]"}`}>
         <span class={`h-1.5 w-1.5 rounded-full flex-shrink-0 ${isClosedToday ? "bg-[var(--color-fg-subtle)]" : "bg-[var(--color-gold)] status-pulse"}`} aria-hidden="true"></span>
         {isClosedToday ? t("hours.closedLabel") : t("hours.openNow")}
@@ -96,7 +96,7 @@ const todaySlot = siteConfig.hours[todayName];
     </p>
 
     <!-- CTAs -->
-    <div class="mt-12 flex flex-wrap justify-center gap-4 hero-in" style="--d:520ms">
+    <div class="mt-10 flex flex-wrap justify-center gap-4 hero-in" style="--d:520ms">
       <a href={localizedPath(locale, "/booking")} class="btn-primary">{t("hero.cta")}</a>
       <a href="#hours" class="btn-ghost">{t("hero.secondaryCta")}</a>
     </div>
