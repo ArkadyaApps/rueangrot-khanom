@@ -28,5 +28,5 @@ export default defineConfig({
     locales: ["en", "fr", "th"],
     routing: { prefixDefaultLocale: true, redirectToDefaultLocale: true },
   },
-  site: "https://rueangrot-khanom-f10.pages.dev",
+  site: "https://rueangrot-khanom.pages.dev",
 });
