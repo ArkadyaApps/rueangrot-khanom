@@ -6,7 +6,7 @@ pages_build_output_dir = "./dist"
 [[d1_databases]]
 binding = "DB"
 database_name = "rueangrot-khanom-db"
-database_id = "e42c7867-77fc-45d4-baa5-1f5f916ff39e"
+database_id = "05ac0f9b-2d63-49a0-b132-f8f2300db92a"
 migrations_dir = "./migrations"
 
 [vars]
